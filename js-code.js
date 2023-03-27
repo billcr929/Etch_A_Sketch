@@ -3,7 +3,7 @@ var etchBoxDims = etchBox.getBoundingClientRect();
 var etchBoxHeight = etchBoxDims.height;
 console.log(etchBoxHeight);
 let gridSize=10;
-let colorOption = 'blackWhite';
+let colorOption = 'blackWhite';//selects the initial mode on start up
 updateGrid();
 
 console.log('run');
@@ -38,14 +38,10 @@ function updateGrid(){
     overLay.classList.add('overlay');
 
     etchBox.appendChild(box);
-    box.style.cssText='background-color:black;\
-     margin:-1px;border: solid 1px white; width:'+width+'px; \
-     height:'+width+'px; opacity:1';
+    styleGrid(box,'black','1');
 
      box.appendChild(overLay);
-     overLay.style.cssText='background-color:black;\
-     margin:-1px;border: solid 1px white; width:'+width+'px; \
-     height:'+width+'px; opacity:0';
+     styleGrid(overLay,'black','0');
     }
 hover();}
 
@@ -78,30 +74,31 @@ function hover(){
 
             if (colorOption == 'blackWhite'){
             box.classList.add('Hover');
-            box.style.cssText='background-color:white;\
-            margin:-1px;border: solid 1px white; width:'+width+'px; \
-            height:'+width+'px; opacity:1'
+            styleGrid(box,'white',1);
             box.children[0].style.opacity=0;
+
+            
         }else if(colorOption == 'randomColor'){
             let r = Math.floor(Math.random() * 255);
             let g= Math.floor(Math.random() * 255);
             let b = Math.floor(Math.random() * 255);
             let boxColor = 'rgba('+r+','+g+','+b+','+1+')'
-            box.style.cssText='background-color:'+boxColor+';\
-            margin:-1px;border: solid 1px white; width:'+width+'px; \
-            height:'+width+'px; opacity:1'
+            styleGrid(box,boxColor,'1');
+
             box.children[0].style.opacity=0;
             }else if(colorOption == 'grayScale'){
                 let opa=Number(box.children[0].style.opacity);
-
-                box.children[0].style.opacity=opa+.2;
-                console.log(opa);
-
-
-
+                box.children[0].style.opacity=opa+.1;
             }
 });
 
 });
+
+}
+
+function styleGrid(box, bgColor,opacity){
+    box.style.cssText='background-color:'+bgColor+';\
+    margin:-1px;border: solid 1px white; width:'+width+'px; \
+    height:'+width+'px; opacity:'+opacity;
 
 }
