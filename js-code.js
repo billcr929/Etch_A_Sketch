@@ -30,16 +30,23 @@ function updateGrid(){
     width = getBoxHeight(gridSize);
     gridNum=gridSize*gridSize;
     
-for (let i=1; i<=gridNum;i++) {
+    for (let i=1; i<=gridNum;i++) {
 
     const box = document.createElement('div');
+    const overLay = document.createElement('div');
     box.classList.add('singleBox');
+    overLay.classList.add('overlay');
 
     etchBox.appendChild(box);
     box.style.cssText='background-color:black;\
      margin:-1px;border: solid 1px white; width:'+width+'px; \
-     height:'+width+'px';
-}
+     height:'+width+'px; opacity:1';
+
+     box.appendChild(overLay);
+     overLay.style.cssText='background-color:black;\
+     margin:-1px;border: solid 1px white; width:'+width+'px; \
+     height:'+width+'px; opacity:0';
+    }
 hover();}
 
 function getGridSize(){
@@ -72,16 +79,26 @@ function hover(){
             if (colorOption == 'blackWhite'){
             box.classList.add('Hover');
             box.style.cssText='background-color:white;\
-            margin:-1px;border: solid 1px black; width:'+width+'px; \
-            height:'+width+'px'}else 
-            if(colorOption == 'randomColor'){
-                let r = Math.floor(Math.random() * 255);
-                let g= Math.floor(Math.random() * 255);
-                let b = Math.floor(Math.random() * 255);
-                let boxColor = 'rgba('+r+','+g+','+b+','+1+')'
-                box.style.cssText='background-color:'+boxColor+';\
-                margin:-1px;border: solid 1px black; width:'+width+'px; \
-                height:'+width+'px'
+            margin:-1px;border: solid 1px white; width:'+width+'px; \
+            height:'+width+'px; opacity:1'
+            box.children[0].style.opacity=0;
+        }else if(colorOption == 'randomColor'){
+            let r = Math.floor(Math.random() * 255);
+            let g= Math.floor(Math.random() * 255);
+            let b = Math.floor(Math.random() * 255);
+            let boxColor = 'rgba('+r+','+g+','+b+','+1+')'
+            box.style.cssText='background-color:'+boxColor+';\
+            margin:-1px;border: solid 1px white; width:'+width+'px; \
+            height:'+width+'px; opacity:1'
+            box.children[0].style.opacity=0;
+            }else if(colorOption == 'grayScale'){
+                let opa=Number(box.children[0].style.opacity);
+
+                box.children[0].style.opacity=opa+.2;
+                console.log(opa);
+
+
+
             }
 });
 
